@@ -1,0 +1,39 @@
+{
+  "name": "mei-bocesting-fe-admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@canvasjs/charts": "^3.7.13",
+    "@canvasjs/vue-charts": "^1.0.1",
+    "@vuepic/vue-datepicker": "^5.4.0",
+    "axios": "^1.4.0",
+    "bootstrap-icons": "^1.10.5",
+    "chart.js": "^3.9.1",
+    "core-js": "^3.8.3",
+    "dateformat": "^5.0.3",
+    "pinia": "^2.1.4",
+    "sweetalert2": "^11.7.18",
+    "vee-validate": "^4.10.6",
+    "vue": "^3.2.13",
+    "vue-chart-3": "^3.1.8",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0",
+    "vuex-persistedstate": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}

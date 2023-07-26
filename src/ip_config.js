@@ -1,0 +1,1 @@
+export const ip = "https://lumen-cibernatik.mibplus.id"

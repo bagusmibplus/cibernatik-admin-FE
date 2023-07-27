@@ -49,7 +49,7 @@ export const useUserStore = defineStore("user", () => {
           Authorization: localStorage.getItem("user_token")
         }
       })
-      console.log(res);
+      // console.log(res);
       if (res.data.error_code === 0) {
         res.data.data.forEach(el => {
         dataResponden.push(el)      

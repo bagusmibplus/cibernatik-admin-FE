@@ -4,7 +4,7 @@
       <h1>Detail Pelaporan</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Home / Detail Pelaporan</li>
+          <li class="breadcrumb-item"></li>
         </ol>
       </nav>
     </div>
@@ -14,25 +14,44 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Halaman Pelaporan</h5>
+              <h5 class="card-title">Halaman Pelaporan, {{ namaPelapor }}</h5>
 
               <div class="row text-right">
                 <div class="col"></div>
                 <div class="col"></div>
                 <div class="col"></div>
                 <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
                 <div class="col">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="DOWNLOAD EXCEL"
-                    style="display: flex; margin-left: 1200px"
-                    onclick=""
+                  <a
+                    href="https://lumen-cibernatik.mibplus.id/intervensi/export"
                   >
-                    <i class="ri ri-file-excel-2-fill me-1"></i> Download
-                  </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="DOWNLOAD EXCEL"
+                      style="
+                        display: flex;
+                        position: relative;
+                        align-items: right;
+                        margin-left: 300px;
+                      "
+                      onclick=""
+                    >
+                      <i class="ri ri-file-excel-2-fill me-1"></i> Download
+                    </button>
+                  </a>
                 </div>
                 <div class="col">
                   <!-- <a href="/responden/add" -->
@@ -46,13 +65,12 @@
               <!-- Table with stripped rows -->
               <div class="table-responsive shadow p-3 mb-5 bg-body rounded">
                 <table
-                v-for="(data, index) in dataDetailPelaporan"
-                
+                  v-for="(data, index) in dataDetailPelaporan"
                   class="table table table-striped border border-dark table-bordered shadow p-3 mb-5 bg-body rounded"
                   style="font-size: 0.95em"
                 >
                   <tbody>
-                    <tr>
+                    <!-- <tr>
                       <th style="width: 50%">Nama Responden</th>
                       <th
                         style="width: 50%; text-align: center"
@@ -60,8 +78,8 @@
                       >
                         {{ namaPelapor}}
                       </th>
-                    </tr>
-                    <tr>
+                    </tr> -->
+                    <!-- <tr>
                       <th>Username</th>
                
                       <th  
@@ -69,7 +87,7 @@
                       >
                         {{ usernamePelapor }}
                       </th>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <th>Tanggal Pelaporan</th>
                       <th style="width: 50%; text-align: center">
@@ -87,21 +105,21 @@
                     <tr>
                       <th>Keberadaan Jentik Nyamuk</th>
                       <th style="width: 50%; text-align: center">
-                        {{ data.Keberadaan }}
+                        {{ data.keberadaan ? "Ada" : "Tidak Ada" }}
                       </th>
                     </tr>
 
                     <tr>
                       <th>Letak Kontainer</th>
                       <th style="width: 50%; text-align: center">
-                        {{ data.di_luar }}
+                        {{ data.di_luar ? "Di Luar" : "Di Dalam" }}
                       </th>
                     </tr>
 
                     <tr>
                       <th>Kondisi Kontainer</th>
                       <th style="width: 50%; text-align: center">
-                        {{ data.terbuka }}
+                        {{ data.terbuka ? "Terbuka" : "Tertutup" }}
                       </th>
                     </tr>
 
@@ -142,7 +160,7 @@ const user = useUserStore();
 const route = useRoute();
 var dataDetailPelaporan = ref();
 var namaPelapor = ref();
-var usernamePelapor = ref()
+var usernamePelapor = ref();
 const getDataPelaporan = async () => {
   try {
     // dataDetailPelaporan.splice(0);
@@ -156,15 +174,15 @@ const getDataPelaporan = async () => {
     );
     // console.log(res.data.data[0], "iniii pelaporan");
     if (res.data.error_code === 0) {
-      let data = res.data.data
-      let pelaporan = data.map(obj => obj.pelaporan)
-      let reduced = pelaporan.reduce((total,el) => total.concat(el))
-      console.log(reduced)
-      dataDetailPelaporan.value = reduced
-      namaPelapor.value = data[0].nama_responden
-      usernamePelapor.value = data[0].username_responden
+      let data = res.data.data;
+      let pelaporan = data.map((obj) => obj.pelaporan);
+      let reduced = pelaporan.reduce((total, el) => total.concat(el));
+      console.log(reduced);
+      dataDetailPelaporan.value = reduced;
+      namaPelapor.value = data[0].nama_responden;
+      usernamePelapor.value = data[0].username_responden;
       console.log(namaPelapor, "ini nama pelapor");
-      console.log(dataDetailPelaporan, "ini pelaporan")
+      console.log(dataDetailPelaporan, "ini pelaporan");
       // for (let i = 0; i < res.data.data.length; i++) {
       //   const lapor = res.data.data[i];
       //   namaPelapor.push(lapor);
@@ -174,13 +192,13 @@ const getDataPelaporan = async () => {
       //       dataDetailPelaporan.push(laporan);
       //       console.log(namaPelapor, "ini dataaaaaaa nama");
       //       console.log(dataDetailPelaporan, "ini data lapooorr");
-            // console.log("ID Laporan:", laporan.id);
-            // console.log("Responden ID:", laporan.responden_id);
-            // console.log("Jenis:", laporan.jenis);
-            // console.log("Keberadaan:", laporan.keberadaan);
-            // console.log("Raw Created At:", laporan.raw_created_at);
-            // console.log("---------------------");
-        //   }
+      // console.log("ID Laporan:", laporan.id);
+      // console.log("Responden ID:", laporan.responden_id);
+      // console.log("Jenis:", laporan.jenis);
+      // console.log("Keberadaan:", laporan.keberadaan);
+      // console.log("Raw Created At:", laporan.raw_created_at);
+      // console.log("---------------------");
+      //   }
       //   }
       // }
 

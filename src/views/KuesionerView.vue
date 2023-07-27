@@ -4,7 +4,7 @@
         <h1>Manajemen Data Kuesioner dan Data Pelaporan </h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item">Home / Kuesioner dan Data Pelaporan</li>
+            <li class="breadcrumb-item"></li>
           </ol>
         </nav>
       </div>
@@ -22,10 +22,10 @@
                   <div class="col"></div>
                   <div class="col"></div>
                   <div class="col">
-                    <button style="margin-left: 150px;" type="button" class="btn btn-secondary " data-toggle="tooltip" data-placement="top" title="DOWNLOAD EXCEL" onclick="">
+                    <!-- <button style="display: flex;margin-left: 150px; width: 120px;" type="button" class="btn btn-secondary " data-toggle="tooltip" data-placement="top" title="DOWNLOAD EXCEL" onclick="">
                         <i class="ri ri-file-excel-2-fill me-1 "></i> Download
                       </button>
-                    
+                     -->
                   </div>
                 </div>
                 <br />

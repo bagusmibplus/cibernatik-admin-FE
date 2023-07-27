@@ -63,7 +63,8 @@
                   >
                   <div class="col-sm-10">
                     <input
-                      type="text"
+                      type="number"
+                      max="50"
                       class="form-control"
                       name="nama"
                       v-model="dataResponden.rt"
@@ -78,7 +79,8 @@
                   >
                   <div class="col-sm-10">
                     <input
-                      type="text"
+                      type="number"
+                      max="50"
                       class="form-control"
                       name="nama"
                       v-model="dataResponden.rw"
@@ -92,13 +94,51 @@
                     >Kelurahan</label
                   >
                   <div class="col-sm-10">
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="nama"
+                    <!-- <label for="cars">Choose a car:</label> -->
+                    <select
+                      class="form-select"
                       v-model="dataResponden.kelurahan"
-                      required
-                    />
+                      aria-label="Default select example"
+                      name="cars"
+                      id="cars"
+                    >
+                      <optgroup label="KEC TANJUNGPINANG KOTA">
+                        <option value="Tanjungpinang Kota">
+                          Tanjungpinang Kota
+                        </option>
+                        <option value="Penyengat">Penyengat</option>
+                        <option value="Kampung Bugis">Kampung Bugis</option>
+                        <option value="Senggarang">Senggarang</option>
+                      </optgroup>
+                      <optgroup label="KEC TANJUNGPINANG BARAT">
+                        <option value="Tanjungpinang Barat">
+                          Tanjungpinang Barat
+                        </option>
+                        <option value="Kamboja">Kamboja</option>
+                        <option value="Kampung Baru">Kampung Baru</option>
+                        <option value="Bukit Cermin">Bukit Cermin</option>
+                      </optgroup>
+                      <optgroup label="KEC TANJUNGPINANG TIMUR">
+                        <option value="Melayu Kota Piring">
+                          Melayu Kota Piring
+                        </option>
+                        <option value="Kampung Bulang">Kampung Bulang</option>
+                        <option value="Batu 9">Batu 9</option>
+                        <option value="Air Raja">Air Raja</option>
+                        <option value="Pinang Kencana">Pinang Kencana</option>
+                      </optgroup>
+                      <optgroup label="KEC BUKIT BESTARI">
+                        <option value="Tanjungpinang Timur">
+                          Tanjungpinang Timur
+                        </option>
+                        <option value="Tanjung Unggat">Tanjung Unggat</option>
+                        <option value="Sei Jang">Sei Jang</option>
+                        <option value="Tanjung Ayun Sakti">
+                          Tanjung Ayun Sakti
+                        </option>
+                        <option value="Dompak">Dompak</option>
+                      </optgroup>
+                    </select>
                   </div>
                 </div>
 
@@ -155,7 +195,8 @@
                   >
                   <div class="col-sm-10">
                     <input
-                      type="text"
+                      type="number"
+                      max="50"
                       class="form-control"
                       name="nama"
                       v-model="dataResponden.anggota_keluarga"
@@ -170,7 +211,8 @@
                   >
                   <div class="col-sm-10">
                     <input
-                      type="text"
+                      type="number"
+                      max="10000"
                       class="form-control"
                       name="nama"
                       v-model="dataResponden.luas_rumah"
@@ -271,7 +313,7 @@
                         :type="type_password_confirm"
                         class="form-control"
                         name="password_confirm"
-                        value=""
+                        v-model="dataResponden.password_confirm_responden"
                       />
                       <div class="invalid-feedback">
                         Silahkan Masukan Password Confirm
@@ -321,6 +363,7 @@ const dataResponden = reactive({
   luas_rumah: "",
   username_responden: "",
   password_responden: "",
+  password_confirm_responden: "",
 });
 
 const icon_password = ref("fa fa-eye-slash");
@@ -410,22 +453,72 @@ const togglePasswordConfirm = () => {
   }
 };
 const createData = async () => {
+  // console.log("dataResponden.nama_responden", dataResponden.nama_responden);
+  // console.log("dataResponden.alamat", dataResponden.alamat);
+  // console.log("dataResponden.rt", dataResponden.rt);
+  // console.log("dataResponden.rw", dataResponden.rw);
+  // console.log("dataResponden.kelurahan", dataResponden.kelurahan);
+  // console.log("dataResponden.pendidikan", dataResponden.pendidikan);
+  // console.log("dataResponden.pekerjaan", dataResponden.pekerjaan);
+  // console.log("dataResponden.anggota_keluarg", dataResponden.anggota_keluarga);
+  // console.log("dataResponden.luas_rumah", dataResponden.luas_rumah);
+  // console.log("dataResponden.gender", dataResponden.gender);
+  // console.log("dataResponden.username_responden", dataResponden.username_responden);
+  // console.log("dataResponden.password_confirm_responden",dataResponden.password_confirm_responden);
   try {
-    let res = await axios.post(ip + "/create-responden", dataResponden, {
-      headers: {
-        Authorization: localStorage.getItem("user_token")
-      },
-    });
-    console.log(dataResponden, "INI DATA RESP");
-    console.log(res);
-    user.getResponden();
-    router.push("/responden");
-  } catch (error) {
-    console.log(error, "ERRORNYA");
-  }
+    if (
+      dataResponden.nama_responden === "" ||
+      dataResponden.alamat === "" ||
+      dataResponden.rt === "" ||
+      dataResponden.rw === "" ||
+      dataResponden.kelurahan === "" ||
+      dataResponden.pendidikan === "" ||
+      dataResponden.pekerjaan === "" ||
+      dataResponden.anggota_keluarga === 0 ||
+      dataResponden.luas_rumah === 0 ||
+      dataResponden.gender === "" ||
+      dataResponden.username_responden === "" ||
+      dataResponden.password_confirm_responden === ""
+    ) {
+      Swal.fire("Gagal Input Data!", "Semua Data Harus di Isi", "warning");
+
+      // alert("Semua Data Harus di Isi");
+      // router.push("/addresponden")
+    } else if (
+      dataResponden.rt >= 50 ||
+      dataResponden.rw >= 50 ||
+      dataResponden.anggota_keluarga >= 50 ||
+      dataResponden.luas_rumah >= 50000
+    ) {
+      Swal.fire(
+        "Gagal Input Data!",
+        "Data Yang Anda Masukkan Belum sesuai",
+        "warning"
+      );
+    } else if (
+      dataResponden.password_responden !==
+      dataResponden.password_confirm_responden
+    ) {
+      Swal.fire("Gagal Input Data!", "Konfirmasi Password Salah", "warning");
+    } else {
+      console.log(dataResponden, "data resp");
+      let res = await axios.post(ip + "/create-responden", dataResponden, {
+        headers: {
+          Authorization: localStorage.getItem("user_token"),
+        },
+      });
+      if (res.data.error_code === 0) {
+        Swal.fire("SUKSES!", "Data Berhasil Di Tambahkan", "success");
+        router.push("/responden");
+      } else {
+        Swal.fire("Gagal Input Data!", "Username Telah Di Gunakan!", "warning");
+        // alert(res.data.error_desc);
+      }
+    }
+  } catch (error) {}
 };
 
 onMounted(async () => {
-//   await createData();
+  // await createData();
 });
 </script>

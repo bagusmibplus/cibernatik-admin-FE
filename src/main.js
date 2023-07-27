@@ -12,15 +12,15 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import CanvasJSChart from '@canvasjs/vue-charts';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+// import { Bar } from 'vue-chartjs'
+
 const app = createApp(App)
 const pinia = createPinia()
-
-// // Import all of Bootstrap's JS
-// import "bootstrap/dist/css/bootstrap.min.css"
-// import "bootstrap"
-// import 'bootstrap-icons/font/bootstrap-icons.css'
+pinia.use(piniaPluginPersistedstate)
 app.use(CanvasJSChart)
 app.use(router)
 app.use(pinia)
+// app.use(Bar)
 
 app.mount('#app')

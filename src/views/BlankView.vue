@@ -30,39 +30,97 @@
             </h5>
           </div>
         </div>
+        <CanvasJSChart style="height: 500px;" :options="options"/>
       </div>
-
-      <div>
-        <CanvasJSChart :options="options" />
-      </div>
+      
+      <!-- <div style="width: 100%; height: 100%;">
+        
+  
+      </div> -->
     </section>
+    <!-- <pre>{{ options }}</pre> -->
   </main>
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch, onMounted } from "vue";
+import { ref, reactive, computed, watch, onMounted, onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useUserStore } from "../stores/user.js";
+import { useDiagram } from "../stores/data.js";
 import axios from "axios";
 import { ip } from "../ip_config";
 import router from "@/router";
 
-let a = reactive([
-  { label: "a", y: 20 },
-  { label: "b", y: 15 },
-]);
+const data = useDiagram()
+const route = useRoute();
+const dataDiagram = reactive([]);
+const getGrafik = async () => {
+  try {
+    let res = await axios.get(ip + "/grafik", {
+      headers: {
+        Authorization: localStorage.getItem("user_token"),
+      },
+    });
+    console.log(res.data.data, "res");
+    if (res.data.error_code === 0) {
+      dataDiagram.push(res.data.data);
+      console.log(dataDiagram, "data diagram");
+    } else {
+      alert(res.data.error_code);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 const chart = ref(null);
 const options = reactive({
-  animationEnabled: true,
-  title: {
-    text: "Diagram Perbandingan Keberadaan Jentik Tiap Kelurahan",
-  },
-  data: [
-    {
-      type: "column",
-      dataPoints: a,
-    },
-  ],
+        animationEnabled: true,
+        exportEnabled: true,
+        title:{
+          text: ""
+        },
+        axisX: {
+          interval : 1,
+          labelTextAlign: "right"
+        },
+        axisY: {
+          title: "",
+          suffix: ""
+        },
+        data: [{
+          type: "bar",
+          yValueFormatString: "# jentik",
+          dataPoints: data.getDataDiagram
+        }]
+      })
+ 
+
+
+// const chart = ref(null);
+// const options = reactive({
+//   animationEnabled: true,
+//   exportEnabled: true,
+//   title: {
+//     text: "",
+//   },
+//   data: [
+//     {
+//       type: "column",
+//       dataPoints: data.getDataDiagram,
+//     },
+//   ],
+// });
+
+onBeforeMount(async () => {
+  await getGrafik();
+  //  console.log(options);
+  //  console.log(options.data)
+  //  console.log(options.data[0]);
+  //  console.log(options.data[0].dataPoints);
+
+  //  options.data[0].dataPoints = dataDiagram.value
+  // console.log(options.data[0].dataPoints);
+  console.log(data.getDataDiagram);
 });
 </script>

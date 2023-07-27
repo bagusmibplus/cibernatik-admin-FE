@@ -4,7 +4,7 @@
       <h1>Manajemen Responden</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Responden</li>
+          <li class="breadcrumb-item"></li>
         </ol>
       </nav>
     </div>
@@ -14,22 +14,25 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Daftar Responden</h5>
+              <h5 class="card-title">Data Responden</h5>
 
               <div class="row text-right">
                 <div class="col"></div>
                 <div class="col"></div>
                 <div class="col"></div>
                 <div class="col"></div>
+                <div class="col"></div>
                 <div class="col">
-                  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="DOWNLOAD EXCEL" onclick="">
-                      <i class="ri ri-file-excel-2-fill me-1"></i> Download
+                  <a href="https://lumen-cibernatik.mibplus.id/respondens/export">
+                  <button type="button" style="display: flex; position: relative; align-items: right; margin-left: 200px;" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="DOWNLOAD EXCEL" onclick="">
+                      <i class="ri ri-file-excel-2-fill me-1" ></i> Download
                     </button>
+                    </a>
                   
                 </div>
                 <div class="col">
                   <!-- <a href="/responden/add" -->
-                    <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="TAMBAH DATA" @click="tambah">
+                    <button type="button" style="display: flex; position: relative; align-items: right; margin-left: 10px; " class="btn btn-success" data-toggle="tooltip" data-placement="top" title="TAMBAH DATA" @click="tambah">
                       <i class="bi bi-person-plus me-1"></i> Tambah
                     </button>
                   
@@ -134,6 +137,7 @@ const editDataResponden = (id) => {
 const tambah = () => {
 	router.push("/addresponden")
 }
+
 
 const hapus = async (id) => {
   console.log("aaaa");

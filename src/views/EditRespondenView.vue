@@ -5,12 +5,12 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="/">Home</a>
+            <a href="/"></a>
           </li>
           <li class="breadcrumb-item">
-            <a href="/responden">Responden</a>
+            <a href="/responden"></a>
           </li>
-          <li class="breadcrumb-item active">Ubah Responden</li>
+          <li class="breadcrumb-item active"></li>
         </ol>
       </nav>
     </div>
@@ -37,7 +37,7 @@
                       type="text"
                       class="form-control"
                       name="nama"
-                      v-model="dataResponden.nama"
+                      v-model="dataResponden.nama_responden"
                       required
                     />
                   </div>
@@ -63,7 +63,8 @@
                   >
                   <div class="col-sm-10">
                     <input
-                      type="text"
+                      type="number"
+                      max = "50"
                       class="form-control"
                       name="nama"
                       v-model="dataResponden.rt"
@@ -78,7 +79,8 @@
                   >
                   <div class="col-sm-10">
                     <input
-                      type="text"
+                      type="number"
+                      max = "50"
                       class="form-control"
                       name="nama"
                       v-model="dataResponden.rw"
@@ -92,13 +94,51 @@
                     >Kelurahan</label
                   >
                   <div class="col-sm-10">
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="nama"
+                    <!-- <label for="cars">Choose a car:</label> -->
+                    <select
+                      class="form-select"
                       v-model="dataResponden.kelurahan"
-                      required
-                    />
+                      aria-label="Default select example"
+                      name="cars"
+                      id="cars"
+                    >
+                      <optgroup label="KEC TANJUNGPINANG KOTA">
+                        <option value="Tanjungpinang Kota">
+                          Tanjungpinang Kota
+                        </option>
+                        <option value="Penyengat">Penyengat</option>
+                        <option value="Kampung Bugis">Kampung Bugis</option>
+                        <option value="Senggarang">Senggarang</option>
+                      </optgroup>
+                      <optgroup label="KEC TANJUNGPINANG BARAT">
+                        <option value="Tanjungpinang Barat">
+                          Tanjungpinang Barat
+                        </option>
+                        <option value="Kamboja">Kamboja</option>
+                        <option value="Kampung Baru">Kampung Baru</option>
+                        <option value="Bukit Cermin">Bukit Cermin</option>
+                      </optgroup>
+                      <optgroup label="KEC TANJUNGPINANG TIMUR">
+                        <option value="Melayu Kota Piring">
+                          Melayu Kota Piring
+                        </option>
+                        <option value="Kampung Bulang">Kampung Bulang</option>
+                        <option value="Batu 9">Batu 9</option>
+                        <option value="Air Raja">Air Raja</option>
+                        <option value="Pinang Kencana">Pinang Kencana</option>
+                      </optgroup>
+                      <optgroup label="KEC BUKIT BESTARI">
+                        <option value="Tanjungpinang Timur">
+                          Tanjungpinang Timur
+                        </option>
+                        <option value="Tanjung Unggat">Tanjung Unggat</option>
+                        <option value="Sei Jang">Sei Jang</option>
+                        <option value="Tanjung Ayun Sakti">
+                          Tanjung Ayun Sakti
+                        </option>
+                        <option value="Dompak">Dompak</option>
+                      </optgroup>
+                    </select>
                   </div>
                 </div>
 
@@ -145,7 +185,8 @@
                   >
                   <div class="col-sm-10">
                     <input
-                      type="text"
+                      type="number"
+                      max = "50"
                       class="form-control"
                       name="nama"
                       v-model="dataResponden.anggota_keluarga"
@@ -160,7 +201,8 @@
                   >
                   <div class="col-sm-10">
                     <input
-                      type="text"
+                    type="number"
+                      max = "50000"
                       class="form-control"
                       name="nama"
                       v-model="dataResponden.luas_rumah"
@@ -213,7 +255,7 @@
                       type="text"
                       class="form-control"
                       name="username"
-                      v-model="dataResponden.username"
+                      v-model="dataResponden.username_responden"
                       required
                     />
                   </div>
@@ -234,7 +276,7 @@
                         :type="type_password"
                         class="form-control"
                         name="password"
-                        v-model="dataResponden.password"
+                        v-model="dataResponden.password_responden"
                       />
                       <div class="invalid-feedback">
                         Silahkan Masukan Password Anda
@@ -261,7 +303,7 @@
                         :type="type_password_confirm"
                         class="form-control"
                         name="password_confirm"
-                        value=""
+                        v-model="dataResponden.password_confirm_responden"
                       />
                       <div class="invalid-feedback">
                         Silahkan Masukan Password Confirm
@@ -300,18 +342,19 @@ const route = useRoute();
 
 
 const dataResponden = reactive ({
-  nama : "",
-  gender : "",
-  alamat : "",
-  rt : "",
-  rw : "",
+  nama_responden: "",
+  gender: "",
+  alamat: "",
+  rt: "",
+  rw: "",
   kelurahan: "",
-  pendidikan : "",
-  pekerjaan : "",
-  anggota_keluarga : "",
-  luas_rumah : "",
-  username: "",
-  password: "", 
+  pendidikan: "",
+  pekerjaan: "",
+  anggota_keluarga: "",
+  luas_rumah: "",
+  username_responden: "",
+  password_responden: "",
+  password_confirm_responden: "",
 })
 
 
@@ -327,25 +370,62 @@ const editData = async () => {
       Authorization: localStorage.getItem("user_token")
     }
   })
-  dataResponden.nama = res.data.data.nama_responden
+  dataResponden.nama_responden = res.data.data.nama_responden
   dataResponden.gender = res.data.data.gender
-  dataResponden.username = res.data.data.username_responden
   dataResponden.alamat = res.data.data.alamat
   dataResponden.rt = res.data.data.rt
   dataResponden.rw = res.data.data.rw
+  dataResponden.kelurahan = res.data.data.kelurahan
   dataResponden.pendidikan = res.data.data.pendidikan
   dataResponden.pekerjaan = res.data.data.pekerjaan
   dataResponden.anggota_keluarga = res.data.data.anggota_keluarga
   dataResponden.luas_rumah = res.data.data.luas_rumah
-  dataResponden.kelurahan = res.data.data.kelurahan
+  dataResponden.username_responden = res.data.data.username_responden
+  // dataResponden.password_responden = res.data.data.password_responden
+  // dataResponden.password_confirm_responden = dataResponden.password_confirm_responden
+
   console.log(res);
 }
 
 const updateData = async () => {
  try {
+  if (
+      dataResponden.nama_responden === "" ||
+      dataResponden.alamat === "" ||
+      dataResponden.rt === "" ||
+      dataResponden.rw === "" ||
+      dataResponden.kelurahan === "" ||
+      dataResponden.pendidikan === "" ||
+      dataResponden.pekerjaan === "" ||
+      dataResponden.anggota_keluarga === 0 ||
+      dataResponden.luas_rumah === 0 ||
+      dataResponden.gender === "" ||
+      dataResponden.username === ""
+    ) {
+      Swal.fire("Gagal Input Data!", "Semua Data Harus di Isi", "warning");
+
+      // alert("Semua Data Harus di Isi");
+      // router.push("/addresponden")
+    } else if (
+      dataResponden.rt >= 50 ||
+      dataResponden.rw >= 50 ||
+      dataResponden.anggota_keluarga >= 50 ||
+      dataResponden.luas_rumah >= 50000
+    ) {
+      Swal.fire(
+        "Gagal Input Data!",
+        "Data Yang Anda Masukkan Belum sesuai",
+        "warning"
+      );
+    } else if (
+      dataResponden.password_responden !==
+      dataResponden.password_confirm_responden
+    ) {
+      Swal.fire("Gagal Input Data!", "Konfirmasi Password Salah", "warning");
+    } else {
 
    let res = await axios.post(ip + "/update-responden/" + route.params.id, {
-   nama_responden : dataResponden.nama,
+   nama_responden : dataResponden.nama_responden,
    alamat : dataResponden.alamat,
    gender : dataResponden.gender,
    rt : dataResponden.rt,
@@ -355,16 +435,24 @@ const updateData = async () => {
    pekerjaan : dataResponden.pekerjaan,
    anggota_keluarga : dataResponden.anggota_keluarga,
    luas_rumah : dataResponden.luas_rumah,
-   username_responden: dataResponden.username,
-   password_responden: dataResponden.password, 
+   username_responden: dataResponden.username_responden,
+   password_responden: dataResponden.password_responden, 
+   password_confirm_responden : dataResponden.password_confirm_responden
  }, {
      headers :{
        Authorization: localStorage.getItem("user_token")
      }
    })
-   console.log(res);
-   router.push('/responden')
- } catch (error) {
+   console.log(res, "resssss");
+   if (res.data.error_code === 0) {
+        Swal.fire("SUKSES!", "Data Berhasil Diperbarui", "success");
+        router.push("/responden");
+      } else {
+        Swal.fire("Gagal Input Data!", "Username Telah Digunakan!", "warning");
+        // alert(res.data.error_desc);
+      }
+    }
+  } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
